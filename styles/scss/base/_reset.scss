@@ -17,15 +17,15 @@ a {
   box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
-}
+// @media (prefers-color-scheme: dark) {
+//   html {
+//     color-scheme: dark;
+//   }
+//   body {
+//     color: white;
+//     background: black;
+//   }
+// }
 
 /*
   1. Use a more-intuitive box-sizing model.
@@ -144,7 +144,6 @@ abbr[title] {
   text-decoration: underline; /* 2 */
   text-decoration: underline dotted; /* 2 */
 }
-
 
 /* Forms
    ========================================================================== */

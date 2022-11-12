@@ -1,0 +1,13 @@
+@mixin maxWidth($width) {
+  max-width: $width;
+  margin-left: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  margin-right: auto;
+}
+
+@mixin gapY($space: 1rem) {
+  > :not(:first-child) {
+    margin-left: $space;
+  }
+}
