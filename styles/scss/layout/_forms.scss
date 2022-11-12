@@ -1,0 +1,33 @@
+.form {
+  display: flex;
+
+  > :not(:first-child) {
+    margin-left: 1.6rem;
+  }
+
+  &__input {
+    @extend %description-14;
+    font-weight: 500;
+    border: 0.1rem solid $color-white;
+    border-radius: 0.6rem;
+    background: none;
+    height: 4.6rem;
+    color: $color-white;
+    padding: 0 1.6rem;
+    width: 26.2rem;
+
+    &::placeholder {
+      color: $color-white;
+    }
+  }
+
+  &__btn {
+    @extend %description-16;
+    font-weight: 700;
+    color: $color-blue-ribbon;
+    background-color: $color-white;
+    border-radius: 0.6rem;
+    width: 100%;
+    max-width: 12.4rem;
+  }
+}

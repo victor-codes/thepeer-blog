@@ -1,0 +1,20 @@
+@import "../components/blogHeader";
+@import "../components/blogPostItem";
+
+.post {
+  @include maxWidth($width: 102.4rem);
+  margin-top: 8.8rem;
+
+  &__content {
+    margin-top: 9.6rem;
+    padding: 0 5.6rem;
+
+    @extend %description-20;
+
+    a {
+      color: $color-blue-ribbon;
+      text-decoration: underline;
+      font-weight: 700;
+    }
+  }
+}

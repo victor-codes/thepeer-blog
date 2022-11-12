@@ -1,0 +1,51 @@
+.nav {
+  display: flex;
+  align-items: center;
+  margin-top: 5.4rem;
+  justify-content: space-between;
+
+  @include maxWidth($width: 128rem);
+
+  &__logo {
+    width: 10.2rem;
+    height: 3.2rem;
+  }
+
+  &__link {
+    font-size: 1.6rem;
+    line-height: 1.25;
+    text-transform: capitalize;
+    letter-spacing: -0.02em;
+
+    &__container {
+      display: inline-flex;
+      align-items: center;
+
+      > :not(:first-child) {
+        margin-left: 2.8rem;
+      }
+    }
+  }
+
+  &__btn {
+    @extend %description-16;
+    font-weight: 500;
+    padding: 1.5rem 2.4rem;
+    line-height: 1;
+
+    &--primary {
+      background: $color-blue-ribbon;
+      color: $color-white;
+      border-radius: 0.6rem;
+    }
+
+    &__container {
+      display: inline-flex;
+      align-items: center;
+
+      > :not(:first-child) {
+        margin-left: 1.2rem;
+      }
+    }
+  }
+}

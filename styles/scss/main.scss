@@ -8,6 +8,19 @@
 @import "base/font";
 @import "base/reset";
 
+// components
+@import "components/button";
+
+// layout
+@import "layout/nav";
+@import "layout/footer";
+@import "layout/layout";
+@import "layout/forms";
+
+// pages
+@import "pages/blog";
+@import "pages/blogPost";
+
 // shared
 @import "shared/titles";
 @import "shared/descriptions";

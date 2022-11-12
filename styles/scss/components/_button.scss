@@ -1,0 +1,18 @@
+.btn {
+  border-radius: 0.6rem;
+  line-height: 1;
+  display: block;
+  font-weight: 500;
+  width: fit-content;
+
+  // size
+  &--medium {
+    padding: 1.5rem 2.4rem;
+  }
+
+  // type
+  &--primary {
+    background: $color-blue-ribbon;
+    color: $color-white;
+  }
+}

@@ -1,0 +1,114 @@
+.footer {
+  display: grid;
+  grid-template-columns: repeat(11, 1fr);
+  gap: 1rem;
+  margin-top: 10.4rem;
+  padding-bottom: 8rem;
+
+  &__social {
+    display: flex;
+    @include gapY(1rem);
+
+    &-item {
+      width: 2.4rem;
+      height: 2.4rem;
+      border-radius: 50%;
+    }
+  }
+
+  &__nav {
+    grid-column-start: 5;
+    grid-column-end: 12;
+    display: flex;
+    justify-content: space-between;
+
+    &-item {
+      @extend %description-16;
+      display: block;
+      color: $color-lynch;
+      list-style: none;
+    }
+
+    &__col > ul {
+      padding: 0;
+
+      > :not(:first-child) {
+        display: block;
+        margin-top: 2rem;
+        color: $color-lynch;
+      }
+    }
+
+    &__sub-header {
+      @extend %description-16;
+      margin-bottom: 2.8rem;
+    }
+  }
+
+  &__wrapper {
+    margin-top: 10.4rem;
+    @include maxWidth($width: 128.8rem);
+  }
+
+  &__title {
+    @extend %title-20;
+  }
+
+  &__desc {
+    color: $color-lynch;
+    margin: 1.2rem 0 2rem;
+    width: 21.2rem;
+  }
+
+  &__link {
+    display: inline-block;
+    color: $color-lynch;
+    margin-top: 2rem;
+  }
+}
+
+.newsletter {
+  padding: 8.8rem 7.2rem;
+  margin-bottom: 12.4rem;
+  border-radius: 0.6rem;
+  background-color: $color-blue-ribbon;
+
+  &__title {
+    @extend %title-40;
+    color: $color-white;
+  }
+
+  &__desc {
+    @extend %description-20;
+    color: $color-white;
+    max-width: 44.1rem;
+    margin: 2.4rem 0 4rem;
+  }
+}
+
+.onboard {
+  text-align: center;
+
+  &__title {
+    @extend %title-40;
+  }
+
+  &__desc {
+    margin-top: 1.8rem;
+    @extend %description-20;
+    color: $color-comet;
+  }
+
+  &__link {
+    @extend %description-16;
+    display: block;
+    font-weight: 700;
+    padding: 2rem;
+    background-color: $color-blue-ribbon;
+    border-radius: 0.6rem;
+    color: $color-white;
+    margin: 3.2rem auto 0;
+    width: 100%;
+    max-width: 27.2rem;
+  }
+}

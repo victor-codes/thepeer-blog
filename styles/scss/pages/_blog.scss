@@ -1,0 +1,57 @@
+.blog {
+  @include maxWidth(128.8rem);
+  margin-top: 14rem;
+
+  &__articles {
+    margin-top: 12rem;
+
+    &__header {
+      @extend %title-48;
+      margin-bottom: 5.6rem;
+    }
+    &__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3.2rem;
+    }
+  }
+}
+
+.hero {
+  display: flex;
+  padding-right: 6.4rem;
+  width: 100%;
+  align-items: center;
+
+  &__media {
+    position: relative;
+    width: 52.5%;
+    height: 51.2rem;
+
+    &__image {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__content {
+    width: 47.5%;
+    padding-left: 8rem;
+
+    > :last-child {
+      margin-top: 4rem;
+    }
+  }
+
+  &__title {
+    @extend %title-48;
+  }
+
+  &__excerpt {
+    @extend %description-20;
+    margin: 2.4rem 0 3.2rem;
+    color: $color-comet;
+  }
+}
