@@ -131,11 +131,6 @@ function Footer() {
                     </li>
                     <li className="footer__nav-item">
                       <Link href="/" rel="noopener noreferrer">
-                        qwerjh
-                      </Link>
-                    </li>
-                    <li className="footer__nav-item">
-                      <Link href="/" rel="noopener noreferrer">
                         Status
                       </Link>
                     </li>
