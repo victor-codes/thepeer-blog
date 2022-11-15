@@ -1,0 +1,9 @@
+%clamp {
+  @media screen and (min-width: 768px) {
+    overflow: hidden;
+    line-clamp: 3;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+}

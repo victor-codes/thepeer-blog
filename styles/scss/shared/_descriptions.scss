@@ -9,6 +9,10 @@
 }
 
 %description-20 {
-  font-size: 2rem;
+  font-size: 1.6rem;
+
+  @media screen and (min-width: 768px) {
+    font-size: 2rem;
+  }
   letter-spacing: -0.02em;
 }

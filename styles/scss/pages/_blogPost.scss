@@ -7,11 +7,80 @@
 
   &__content {
     margin-top: 9.6rem;
-    padding: 0 5.6rem;
+
+    // padding: 0 2rem;
+
+    @media screen and (min-width: 768px) {
+      padding: 0 5.6rem;
+    }
 
     @extend %description-20;
 
+    p {
+      margin-bottom: 4rem;
+      @extend %description-20;
+    }
+
+    span {
+      font-size: 1.6rem !important;
+
+      @media screen and (min-width: 768px) {
+        font-size: 2rem !important;
+      }
+
+      margin-bottom: 4rem;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      margin-bottom: 2.4rem;
+    }
+
+    img {
+      width: 100%;
+      margin: 0 auto;
+      height: auto;
+    }
+
+    iframe {
+      margin-bottom: 4rem;
+    }
+
+    ul {
+      padding-left: 2rem;
+      > :not(:first-child) {
+        margin-top: 1.6rem;
+      }
+
+      margin-bottom: 4rem;
+    }
+
+    .wp-caption {
+      width: 100% !important;
+
+      &-text,
+      &-text * {
+        font-size: 1.4rem;
+        text-align: center;
+        color: $color-storm-gray;
+        font-weight: 450;
+        margin-top: 2.4rem;
+      }
+    }
+
     a {
+      @extend %description-20;
+
+      svg {
+        width: 2rem;
+      }
+
       color: $color-blue-ribbon;
       text-decoration: underline;
       font-weight: 700;

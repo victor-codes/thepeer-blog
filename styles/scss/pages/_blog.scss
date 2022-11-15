@@ -1,32 +1,57 @@
 .blog {
   @include maxWidth(128.8rem);
-  margin-top: 14rem;
+  margin-top: 6.4rem;
+
+  @media screen and (min-width: 768px) {
+    margin-top: 14rem;
+  }
 
   &__articles {
-    margin-top: 12rem;
+    margin-top: 7.2rem;
+
+    @media screen and (min-width: 768px) {
+      margin-bottom: 12rem;
+    }
 
     &__header {
       @extend %title-48;
-      margin-bottom: 5.6rem;
+      margin-bottom: 3.2rem;
+
+      @media screen and (min-width: 768px) {
+        margin-bottom: 5.6rem;
+      }
     }
     &__grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 3.2rem;
+      gap: 4rem;
+
+      @media screen and (min-width: 768px) {
+        gap: 3.2rem;
+        grid-template-columns: repeat(3, 1fr);
+      }
     }
   }
 }
 
 .hero {
   display: flex;
-  padding-right: 6.4rem;
-  width: 100%;
-  align-items: center;
+  flex-direction: column;
+
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+    padding-right: 6.4rem;
+    align-items: center;
+    width: 100%;
+  }
 
   &__media {
     position: relative;
-    width: 52.5%;
-    height: 51.2rem;
+    height: 32rem;
+
+    @media screen and (min-width: 768px) {
+      width: 52.5%;
+      height: 51.2rem;
+    }
 
     &__image {
       position: absolute;
@@ -37,8 +62,12 @@
   }
 
   &__content {
-    width: 47.5%;
-    padding-left: 8rem;
+    margin-top: 4rem;
+    @media screen and (min-width: 768px) {
+      margin-top: 0rem;
+      width: 47.5%;
+      padding-left: 8rem;
+    }
 
     > :last-child {
       margin-top: 4rem;
@@ -51,6 +80,7 @@
 
   &__excerpt {
     @extend %description-20;
+    @extend %clamp;
     margin: 2.4rem 0 3.2rem;
     color: $color-comet;
   }

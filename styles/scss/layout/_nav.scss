@@ -1,10 +1,14 @@
 .nav {
   display: flex;
   align-items: center;
-  margin-top: 5.4rem;
+  margin-top: 3rem;
   justify-content: space-between;
 
   @include maxWidth($width: 128rem);
+
+  @media screen and (min-width: 768px) {
+    margin-top: 5.4rem;
+  }
 
   &__logo {
     width: 10.2rem;
@@ -18,8 +22,11 @@
     letter-spacing: -0.02em;
 
     &__container {
-      display: inline-flex;
-      align-items: center;
+      display: none;
+      @media screen and (min-width: 768px) {
+        display: inline-flex;
+        align-items: center;
+      }
 
       > :not(:first-child) {
         margin-left: 2.8rem;
@@ -40,8 +47,11 @@
     }
 
     &__container {
-      display: inline-flex;
-      align-items: center;
+      display: none;
+      @media screen and (min-width: 768px) {
+        display: inline-flex;
+        align-items: center;
+      }
 
       > :not(:first-child) {
         margin-left: 1.2rem;

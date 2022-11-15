@@ -1,7 +1,9 @@
 .footer {
-  display: grid;
-  grid-template-columns: repeat(11, 1fr);
-  gap: 1rem;
+  @media screen and (min-width: 768px) {
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    gap: 1rem;
+  }
   margin-top: 10.4rem;
   padding-bottom: 8rem;
 
@@ -19,8 +21,23 @@
   &__nav {
     grid-column-start: 5;
     grid-column-end: 12;
-    display: flex;
-    justify-content: space-between;
+
+    > :first-child {
+      margin-top: 5.6rem;
+    }
+
+    > :not(:first-child) {
+      margin-top: 4rem;
+    }
+
+    @media screen and (min-width: 768px) {
+      display: flex;
+      justify-content: space-between;
+
+      > div {
+        margin-top: 0rem !important;
+      }
+    }
 
     &-item {
       @extend %description-16;
@@ -68,10 +85,15 @@
 }
 
 .newsletter {
-  padding: 8.8rem 7.2rem;
-  margin-bottom: 12.4rem;
+  padding: 4rem 3.2rem;
+  margin-bottom: 7.2rem;
   border-radius: 0.6rem;
   background-color: $color-blue-ribbon;
+
+  @media screen and (min-width: 768px) {
+    margin-bottom: 12.4rem;
+    padding: 8.8rem 7.2rem;
+  }
 
   &__title {
     @extend %title-40;
