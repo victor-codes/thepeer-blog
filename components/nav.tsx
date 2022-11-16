@@ -6,10 +6,9 @@ import Logo from "../assets/svg/logo.svg";
 function Navigation() {
   return (
     <div className="nav">
-      <div>
+      <Link href="/">
         <Image className="nav__logo" src={Logo} alt={""} />
-        {/* <Logo /> */}
-      </div>
+      </Link>
       <div className="nav__link__container">
         <Link href="/pricing" className="nav__link">
           {" "}

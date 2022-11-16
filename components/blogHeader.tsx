@@ -1,26 +1,45 @@
+import Image from "next/image";
 import React from "react";
+import { formatDate, formatDescription, readingTime } from "../utils";
+import { getMediaById } from "../utils/wordpress";
 import BlogDetails from "./blogDetails";
 
-function BlogHeader() {
+interface BlogHeaderProps {
+  post: object;
+}
+
+function BlogHeader({ post }: BlogHeaderProps) {
+  const readTime = readingTime(post.content.rendered);
+  const formattedDate = formatDate(post.date);
+
   return (
     <header>
       <div className="post__header">
         <h1 className="post__header__title">
-          Introducing Thepeer, the technology company enabling free
-          Business-to-Business transactions
+          {formatDescription(post.title.rendered)}
         </h1>
         <p className="post__header__excerpt">
-          Thepeer is launching its API infrastructure with the mission to fasten
-          the adoption of free transfers between apps and businesses across the
-          world
+          {formatDescription(post.excerpt.rendered.replace(/<[^>]+>/g, ""))}
         </p>
-        <BlogDetails />
+        <BlogDetails
+          author={post.authorData}
+          time={readTime}
+          date={formattedDate}
+        />
       </div>
 
       <figure className="post__featured__media">
-        <img src="/" alt="" className="post__featured__media__image" />
+        {post.featuredMedia.guid?.rendered && (
+          <Image
+            src={post.featuredMedia.guid?.rendered}
+            alt={`${post.featuredMedia.alt_text ?? "featured image"}`}
+            width={1000}
+            height={1000}
+            className="post__featured__media__image"
+          />
+        )}
         <figcaption className="post__featured__media__caption">
-          L-R: Trojan Okoh (CTO & Co-Founder) & Chike Ononye (CEO & Co-Founder)
+          {post.featuredMedia.alt_text}
         </figcaption>
       </figure>
     </header>

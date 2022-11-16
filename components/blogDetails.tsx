@@ -1,17 +1,33 @@
+import Image from "next/image";
 import React from "react";
 
-function BlogDetails() {
+interface BlogDetailsProps {
+  author: object;
+  time: string;
+  date: string;
+}
+
+function BlogDetails({ author, time, date }: BlogDetailsProps) {
+
   return (
     <div className="post__details">
       <figure className="post__author__media">
-        <img src="" alt="" className="post__author__media__image" />
+        {author && (
+          <Image
+            src={author.avatar_urls[48]}
+            alt={author.name}
+            width={40}
+            height={40}
+            className="post__author__media__image"
+          />
+        )}
       </figure>
       <div className="post__details__info">
-        <h4 className="post__author__name">Obiageli Unoka</h4>
+        <h4 className="post__author__name">{author.name}</h4>
         <div className="post__details__detail">
-          <p>Aug 26, 2022</p>
+          <p>{date}</p>
           <span>•</span>
-          <p>5 min read</p>
+          <p>{time}</p>
         </div>
       </div>
     </div>
@@ -19,3 +35,11 @@ function BlogDetails() {
 }
 
 export default BlogDetails;
+
+// export async function getStaticProps(context) {
+//   return {
+//     props: {
+//       context,
+//     },
+//   };
+// }

@@ -1,31 +1,62 @@
+import Image from "next/image";
 import Link from "next/link";
+import { GetStaticProps } from "next";
 import React from "react";
+import { formatDate, formatDescription, readingTime } from "../utils";
 import BlogDetails from "./blogDetails";
 
-function BlogPostItem() {
+interface BlogPostItemProps {
+  data?: object;
+}
+
+function BlogPostItem({ data }: BlogPostItemProps) {
+  const readTime = readingTime(data.content.rendered);
+  const formattedDate = formatDate(data.date);
+
+  console.log(data);
+
   return (
-    <Link href="/">
+    <Link href={`/blog/${data.slug}`}>
       <article>
         <figure className="post__card__media">
-          <img src="" alt="" className="post__card__media__image" />
+          <Image
+            src={data.featuredMedia.source_url}
+            alt={data.featuredMedia.alt_text}
+            width={500}
+            height={500}
+            className="post__card__media__image"
+          />
         </figure>
 
         <div className="post__card__details">
           <h3 className="post__card__title">
-            7 Ways To Retain Your Customers and Boost Retention
+            {formatDescription(data?.title?.rendered)}
           </h3>
-          <p className="post__card__excerpt">
-            Customer retention is crucial to a business's success and lasting
-            sustainability. When done right, it can also increase a company's
-            profits. We've devised eight ways to retain customers and build the
-            business of your dreams.
-          </p>
+          <div
+            dangerouslySetInnerHTML={{ __html: data?.excerpt?.rendered }}
+            className="post__card__excerpt"
+          />
         </div>
 
-        <BlogDetails />
+        <BlogDetails
+          author={data.authorData}
+          time={readTime}
+          date={formattedDate}
+        />
       </article>
     </Link>
   );
 }
 
 export default BlogPostItem;
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const post = params.data;
+
+  return {
+    props: {
+      title: post.title.rendered,
+      post,
+    },
+  };
+};

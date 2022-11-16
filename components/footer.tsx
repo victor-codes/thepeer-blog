@@ -1,12 +1,46 @@
 import Link from "next/link";
-import React from "react";
+import React, { MouseEventHandler } from "react";
 import Facebook from "../assets/svg/facebook.svg";
 import Linkeldn from "../assets/svg/linkeldn.svg";
 import Twitter from "../assets/svg/twitter.svg";
 import Instagram from "../assets/svg/instagram.svg";
+import axios from "axios";
 import Image from "next/image";
+import { useCheckout } from "thepeer-react";
 
 function Footer() {
+  const config = {
+    publicKey: "pspk_test_lv6gqz6lnlchszglsicunbs6bjsbtaaop8psojjsddkzr",
+    amount: "50000",
+    email: "ayodejiv5@gmail.com",
+    currency: "NGN",
+    onSuccess: function (res) {
+      console.log(res);
+
+      setTimeout(() => {}, 10000);
+    },
+    onError: function (error) {
+      console.log(error);
+    },
+    onClose: function (event) {
+      console.log(event);
+      console.log("close");
+      console.log(handleCheckout);
+    },
+  };
+
+  const handleCheckout = useCheckout(config);
+
+  async function handlePayment(e) {
+    e.preventDefault();
+
+    await axios.get("/api/checkout").then((res) => {
+      res.data;
+    });
+
+    return handleCheckout();
+  }
+
   return (
     <div>
       <div className="footer__wrapper">
@@ -47,6 +81,7 @@ function Footer() {
               Click on the button below to get started as a business on Thepeer
             </p>
             <a
+              onClick={handlePayment}
               className="onboard__link"
               href="https://dashboard.thepeer.co/signup"
               target="_blank"
