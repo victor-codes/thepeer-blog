@@ -1,14 +1,16 @@
 import Image from "next/image";
 import React from "react";
 
-interface BlogDetailsProps {
-  author: object;
+type BlogDetailsProps = {
+  author: {
+    avatar_urls: string[];
+    name: string;
+  };
   time: string;
   date: string;
-}
+};
 
 function BlogDetails({ author, time, date }: BlogDetailsProps) {
-
   return (
     <div className="post__details">
       <figure className="post__author__media">
@@ -35,11 +37,3 @@ function BlogDetails({ author, time, date }: BlogDetailsProps) {
 }
 
 export default BlogDetails;
-
-// export async function getStaticProps(context) {
-//   return {
-//     props: {
-//       context,
-//     },
-//   };
-// }

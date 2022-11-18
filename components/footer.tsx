@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { MouseEventHandler } from "react";
+import React from "react";
 import Facebook from "../assets/svg/facebook.svg";
 import Linkeldn from "../assets/svg/linkeldn.svg";
 import Twitter from "../assets/svg/twitter.svg";
@@ -10,35 +10,35 @@ import { useCheckout } from "thepeer-react";
 
 function Footer() {
   const config = {
-    publicKey: "pspk_test_lv6gqz6lnlchszglsicunbs6bjsbtaaop8psojjsddkzr",
-    amount: "50000",
+    publicKey: process.env.NEXT_PUBLIC_THEPEER_SECRET_KEY as string,
+    amount: "500000",
     email: "ayodejiv5@gmail.com",
     currency: "NGN",
-    onSuccess: function (res) {
-      console.log(res);
-
-      setTimeout(() => {}, 10000);
+    onSuccess: function (res: any) {
+      alert("checkout succesful");
     },
-    onError: function (error) {
+    onError: function (error: any) {
       console.log(error);
+      alert("checkout failed");
     },
-    onClose: function (event) {
-      console.log(event);
-      console.log("close");
-      console.log(handleCheckout);
+    onClose: function () {
+      console.log("closed checkout widget");
     },
   };
 
   const handleCheckout = useCheckout(config);
 
-  async function handlePayment(e) {
-    e.preventDefault();
-
+  // event
+  async function handlePayment() {
     await axios.get("/api/checkout").then((res) => {
       res.data;
     });
 
     return handleCheckout();
+  }
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
   }
 
   return (
@@ -52,7 +52,7 @@ function Footer() {
                 Be the first to know when we release a post, make announcements,
                 organise an event and more
               </p>
-              <form className="form">
+              <form className="form" onSubmit={handleSubmit}>
                 <label htmlFor="name">
                   <input
                     type="text"
@@ -80,15 +80,9 @@ function Footer() {
             <p className="onboard__desc">
               Click on the button below to get started as a business on Thepeer
             </p>
-            <a
-              onClick={handlePayment}
-              className="onboard__link"
-              href="https://dashboard.thepeer.co/signup"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <button onClick={handlePayment} className="onboard__link">
               Create an account for free
-            </a>
+            </button>
           </div>
           <footer>
             <div className="footer">

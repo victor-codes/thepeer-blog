@@ -4,11 +4,29 @@ import React from "react";
 import { formatDate, readingTime } from "../utils";
 import BlogDetails from "./blogDetails";
 
-interface HeroPostProps {
-  post: object;
-}
+type HeroPostProps = {
+  post: any;
+  // post: {
+  //   content: {
+  //     rendered: string;
+  //   };
+  //   excerpt: {
+  //     rendered: string;
+  //   };
+  //   date: string;
+  //   slug: string;
+  //   featuredMedia: {
+  //     source_url: string;
+  //     alt_text: string;
+  //   };
+  //   title: {
+  //     rendered: string;
+  //   };
+  //   authorData: object;
+  // };
+};
 function HeroPost({ post }: HeroPostProps) {
-  const readTime = readingTime(post.content.rendered);
+  const readTime = readingTime(post?.content?.rendered);
   const formattedDate = formatDate(post.date);
 
   return (

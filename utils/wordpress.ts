@@ -1,27 +1,25 @@
 import axios from "axios";
 
-const BASE_URL = "https://techcrunch.com/wp-json/wp/v2";
+const BASE_URL = process.env.NEXT_PUBLIC_WORDPRESS_API;
 
 const $axios = axios.create({
   baseURL: BASE_URL,
 });
 
-export async function getAllPosts() {
-  return await $axios.get("/posts?&page=1&per_page=15");
+export async function getAllPosts({ page = 1, per_page = 10 }) {
+  return await $axios.get(`/posts?&page=${page}&per_page=${per_page}`);
 }
 
-export async function getAllFilledPosts() {
-  const { data: allPosts, headers } = await getAllPosts();
+export async function getAllFilledPosts({ page = 1, per_page = 10 }) {
+  const { data: allPosts } = await getAllPosts({ page, per_page });
 
-  const filledPost = [];
+  const parsedPost = [];
 
   for (const post of allPosts) {
     const { data: media } = await getMediaById(post.featured_media);
     const { data: author } = await getAuthorDetails(post.author);
 
-    console.log(post);
-
-    filledPost.push({
+    parsedPost.push({
       title: post?.title,
       slug: post?.slug,
       date: post?.date,
@@ -33,7 +31,7 @@ export async function getAllFilledPosts() {
     });
   }
 
-  return { filledPost, headers: JSON.stringify(headers) };
+  return { parsedPost };
 }
 
 export async function getMediaById(id: string) {
@@ -45,21 +43,27 @@ export async function getAuthorDetails(id: string) {
 }
 
 export async function getSinglePost(slug: string) {
-  const { data: allPosts } = await getAllPosts();
-  const filledPost = [];
+  const { data: allPosts } = await getAllPosts({ per_page: 100 });
 
-  for (const post of allPosts) {
-    const { data: media } = await getMediaById(post.featured_media);
-    const { data: author } = await getAuthorDetails(post.author);
+  const parsedPost = [];
 
-    filledPost.push({ ...post, featuredMedia: media, authorData: author });
-  }
-
-  const post = filledPost.filter((post) => {
+  const filteredPost = allPosts.filter((post: any) => {
     if (post.slug === slug) return post;
   });
 
-  return post[0];
-}
+  const { data: media } = await getMediaById(filteredPost[0].featured_media);
+  const { data: author } = await getAuthorDetails(filteredPost[0].author);
 
-// https://techcrunch.com/wp-json/wp/v2/posts?&page=2&per_page=3
+  parsedPost.push({
+    title: filteredPost[0]?.title,
+    slug: filteredPost[0]?.slug,
+    date: filteredPost[0]?.date,
+    excerpt: filteredPost[0]?.excerpt,
+    content: filteredPost[0]?.content,
+    parselyMeta: filteredPost[0]?.parselyMeta,
+    featuredMedia: { alt_text: media?.alt_text, source_url: media?.source_url },
+    authorData: author,
+  });
+
+  return parsedPost[0];
+}

@@ -1,22 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
-import { GetStaticProps } from "next";
 import React from "react";
-import { formatDate, formatDescription, readingTime } from "../utils";
+import { formatDate, readingTime } from "../utils";
 import BlogDetails from "./blogDetails";
 
-interface BlogPostItemProps {
-  data?: object;
-}
+type BlogPostItemProps = {
+  data?: any;
+};
 
 function BlogPostItem({ data }: BlogPostItemProps) {
   const readTime = readingTime(data.content.rendered);
   const formattedDate = formatDate(data.date);
 
-  console.log(data);
-
   return (
-    <Link href={`/blog/${data.slug}`}>
+    <Link href={`/blog/${data.slug}`} passHref className="post__card">
       <article>
         <figure className="post__card__media">
           <Image
@@ -29,11 +26,12 @@ function BlogPostItem({ data }: BlogPostItemProps) {
         </figure>
 
         <div className="post__card__details">
-          <h3 className="post__card__title">
-            {formatDescription(data?.title?.rendered)}
-          </h3>
+          <h3
+            className="post__card__title"
+            dangerouslySetInnerHTML={{ __html: data.title.rendered }}
+          />
           <div
-            dangerouslySetInnerHTML={{ __html: data?.excerpt?.rendered }}
+            dangerouslySetInnerHTML={{ __html: data.excerpt.rendered }}
             className="post__card__excerpt"
           />
         </div>
@@ -49,14 +47,3 @@ function BlogPostItem({ data }: BlogPostItemProps) {
 }
 
 export default BlogPostItem;
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const post = params.data;
-
-  return {
-    props: {
-      title: post.title.rendered,
-      post,
-    },
-  };
-};

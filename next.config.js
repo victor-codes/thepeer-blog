@@ -8,16 +8,23 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "techcrunch.com",
-        port: "",
+        pathname: "/wp-content/uploads/**",
+      },
+      {
+        protocol: "https",
+        hostname: "beta.techcrunch.com",
         pathname: "/wp-content/uploads/**",
       },
       {
         protocol: "https",
         hostname: "secure.gravatar.com",
-        port: "",
         pathname: "/avatar/**",
       },
     ],
+  },
+  env: {
+    WORDPRESS_API: process.env.NEXT_PUBLIC_WORDPRESS_API,
+    THEPEER_SECRET_KEY: process.env.NEXT_PUBLIC_THEPEER_SECRET_KEY,
   },
 };
 
