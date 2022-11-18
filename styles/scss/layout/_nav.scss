@@ -16,6 +16,7 @@
   }
 
   &__link {
+    @extend %link--hidden;
     font-size: 1.6rem;
     line-height: 1.25;
     text-transform: capitalize;
@@ -36,6 +37,7 @@
 
   &__btn {
     @extend %description-16;
+    @extend %btn-anim;
     font-weight: 500;
     padding: 1.5rem 2.4rem;
     line-height: 1;

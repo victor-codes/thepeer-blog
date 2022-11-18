@@ -21,9 +21,22 @@
         margin-bottom: 5.6rem;
       }
     }
+
+    &__loading {
+      font-size: 2rem;
+      text-align: center;
+    }
+
     &__grid {
       display: grid;
       gap: 4rem;
+
+      &--loading,
+      &--loading > * {
+        opacity: 0.5;
+        user-select: none;
+        pointer-events: none;
+      }
 
       @media screen and (min-width: 768px) {
         gap: 3.2rem;
@@ -72,6 +85,10 @@
     > :last-child {
       margin-top: 4rem;
     }
+
+    > a {
+      @extend %btn-anim;
+    }
   }
 
   &__title {
@@ -83,5 +100,13 @@
     @extend %clamp;
     margin: 2.4rem 0 3.2rem;
     color: $color-comet;
+  }
+}
+
+.loading__hero {
+  height: 22rem;
+
+  @media screen and (min-width: 768px) {
+    height: 51.2rem;
   }
 }

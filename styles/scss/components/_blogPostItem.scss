@@ -1,4 +1,6 @@
 .post__card {
+  transition: opacity 0.4s ease;
+
   &__media {
     position: relative;
     width: 100%;
@@ -28,5 +30,9 @@
 
   &__details {
     margin-top: 3.2rem;
+  }
+
+  &:hover {
+    opacity: 0.7;
   }
 }

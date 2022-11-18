@@ -4,7 +4,10 @@ $color-white: #ffffff;
 $color-black: #000000;
 $color-comet: #586283;
 $color-lynch: #727ea3;
-$color-storm-gray: #6E7191;
+$color-storm-gray: #6e7191;
 
 // fonts
 $font-circular: "Circular Std", sans-serif;
+
+// easing
+$ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
