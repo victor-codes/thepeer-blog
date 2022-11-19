@@ -1,12 +1,12 @@
 import Link from "next/link";
 import React from "react";
+import Image from "next/image";
+import { useCheckout } from "thepeer-react";
 import Facebook from "../assets/svg/facebook.svg";
 import Linkeldn from "../assets/svg/linkeldn.svg";
 import Twitter from "../assets/svg/twitter.svg";
 import Instagram from "../assets/svg/instagram.svg";
 import axios from "axios";
-import Image from "next/image";
-import { useCheckout } from "thepeer-react";
 
 function Footer() {
   const config = {
