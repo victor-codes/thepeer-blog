@@ -10,16 +10,16 @@ function Navigation() {
         <Image className="nav__logo" src={Logo} alt="thepeer's logo" />
       </Link>
       <div className="nav__link__container">
-        <Link href="/pricing" className="nav__link">
+        <Link href="/" className="nav__link">
           Products
         </Link>
-        <Link href="/pricing" className="nav__link">
+        <Link href="/" className="nav__link">
           Pricing
         </Link>
-        <Link href="/docs" className="nav__link">
+        <Link href="/" className="nav__link">
           docs
         </Link>
-        <Link href="/company" className="nav__link">
+        <Link href="/" className="nav__link">
           Company
         </Link>
       </div>

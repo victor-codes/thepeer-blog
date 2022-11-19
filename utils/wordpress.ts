@@ -1,7 +1,6 @@
 import axios from "axios";
 
-// const BASE_URL = process.env.NEXT_PUBLIC_WORDPRESS_API;
-const BASE_URL = "https://techcrunch.com/wp-json/wp/v2";
+const BASE_URL = process.env.NEXT_PUBLIC_WORDPRESS_API;
 
 const $axios = axios.create({
   baseURL: BASE_URL,
