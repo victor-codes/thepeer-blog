@@ -57,7 +57,7 @@ export default function Home() {
   return (
     <Layout>
       <Head>
-        <title>Thepeer&#39;s Blog</title>{" "}
+        <title>Thepeer&#39;s Blog</title>
         <meta name="description" content="ThePeer's Blog" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

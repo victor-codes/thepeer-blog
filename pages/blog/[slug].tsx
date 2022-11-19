@@ -14,8 +14,9 @@ function BlogPost({ post }: BlogPostProps) {
   const readTime = readingTime(post?.content?.rendered);
   const fullTitle = `${formatDescription(
     post.parselyMeta["parsely-title"]
-  )} - ThePeer's Blog`;
-  const canonicalLink = `wwww.thepeer-blog.netlify.app/${post.slug}`;
+  )} | Thepeer's Blog`;
+
+  const canonicalLink = `https://thepeer-blog.netlify.app/${post.slug}`;
   const description = formatDescription(post.excerpt.rendered);
 
   return (
@@ -26,7 +27,7 @@ function BlogPost({ post }: BlogPostProps) {
         <meta name="image" content={post.featuredMedia.source_url} />
         <link rel="canonical" href={canonicalLink} />
         <meta name="og:type" property="og:type" content="article" />
-       
+
         <meta property="og:title" content={fullTitle} />
         <meta name="og:image" content={post.featuredMedia.source_url} />
         <meta name="og:description" content={description} />
@@ -78,6 +79,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       post,
     },
+    revalidate: 10,
   };
 };
 
