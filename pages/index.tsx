@@ -7,20 +7,21 @@ import Layout from "../components/layout";
 import { getAllFilledPosts } from "../utils/wordpress";
 import HeroPost from "../components/heroPost";
 
-// interface HomeProps {
-//   // stickyPost?: object;
-// }
+type HomeProps = {
+  posts?: object;
+};
 
-export default function Home() {
+export default function Home({ posts }: HomeProps) {
   const [page, setPage] = useState(1);
 
   const queryClient = useQueryClient();
 
-  const { isLoading, data, isFetching, isPreviousData } = useQuery(
+  const { isLoading, data, isFetching } = useQuery(
     ["posts", page],
     ({}) => fetchData(page),
     {
       keepPreviousData: true,
+      initialData: posts,
     }
   );
 
@@ -32,6 +33,8 @@ export default function Home() {
 
     return data.parsedPost;
   }
+
+  console.log(data);
 
   const stickyPost = data && data[0];
   const nonStickyPosts = data && data.slice(1);
@@ -114,13 +117,13 @@ export default function Home() {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const allPosts = await getAllFilledPosts({ per_page: 1 });
+  const allPosts = await getAllFilledPosts({ per_page: 10 });
 
-  const stickyPost = allPosts.parsedPost[0];
+  const posts = allPosts.parsedPost;
 
   return {
     props: {
-      stickyPost,
+      posts,
     },
   };
 };
