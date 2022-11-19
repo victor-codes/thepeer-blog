@@ -1,18 +1,13 @@
 import { useState } from "react";
-import { GetStaticProps } from "next";
 import Head from "next/head";
 import { useQuery, useQueryClient } from "react-query";
 import BlogPostItem from "../components/blogPostItem";
 import Layout from "../components/layout";
 import { getAllFilledPosts } from "../utils/wordpress";
 import HeroPost from "../components/heroPost";
-import { HomeType, PostType } from "../types";
+import { PostType } from "../types";
 
-type HomeProps = {
-  posts: HomeType[];
-};
-
-export default function Home({ posts }: HomeProps) {
+export default function Home() {
   const [page, setPage] = useState(1);
 
   const queryClient = useQueryClient();
@@ -22,7 +17,6 @@ export default function Home({ posts }: HomeProps) {
     ({}) => fetchData(page),
     {
       keepPreviousData: true,
-      initialData: posts,
     }
   );
 
@@ -63,7 +57,11 @@ export default function Home({ posts }: HomeProps) {
       </Head>
       <div className="blog">
         {isLoading ? (
-          <div className="blog__articles__loading loading__hero">
+          <div
+            className={`blog__articles__loading loading__hero 
+               ${isFetching && "blog__articles--loading"}
+          `}
+          >
             Fetching article
           </div>
         ) : (
@@ -82,7 +80,7 @@ export default function Home({ posts }: HomeProps) {
             ) : (
               <div
                 className={`blog__articles__grid ${
-                  isFetching && "blog__articles__grid--loading"
+                  isFetching && "blog__articles--loading"
                 }`}
               >
                 {nonStickyPosts &&
@@ -112,13 +110,3 @@ export default function Home({ posts }: HomeProps) {
     </Layout>
   );
 }
-
-export const getStaticProps: GetStaticProps = async () => {
-  const posts = await getAllFilledPosts({ per_page: 10 });
-
-  return {
-    props: {
-      posts,
-    },
-  };
-};

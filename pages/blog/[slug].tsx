@@ -5,15 +5,16 @@ import BlogHeader from "../../components/blogHeader";
 import Layout from "../../components/layout";
 import { getAllPosts, getSinglePost } from "../../utils/wordpress";
 import { formatDescription, readingTime } from "../../utils";
+import { HomeType } from "../../types";
 
 interface BlogPostProps {
-  post: any;
+  post: HomeType;
 }
 
 function BlogPost({ post }: BlogPostProps) {
   const readTime = readingTime(post?.content?.rendered);
   const fullTitle = `${formatDescription(
-    post.parselyMeta["parsely-title"]
+    post.title.rendered
   )} | Thepeer's Blog`;
 
   const canonicalLink = `https://thepeer-blog.netlify.app/${post.slug}`;
