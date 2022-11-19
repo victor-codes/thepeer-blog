@@ -32,7 +32,7 @@ export async function getAllFilledPosts({ page = 1, per_page = 10 }) {
     });
   }
 
-  return { parsedPost };
+  return parsedPost;
 }
 
 export async function getMediaById(id: string) {

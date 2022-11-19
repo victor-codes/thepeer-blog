@@ -1,11 +1,9 @@
 import Image from "next/image";
 import React from "react";
+import { AuthorType } from "../types";
 
 type BlogDetailsProps = {
-  author: {
-    avatar_urls: string[];
-    name: string;
-  };
+  author: AuthorType;
   time: string;
   date: string;
 };

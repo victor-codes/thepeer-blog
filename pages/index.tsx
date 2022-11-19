@@ -6,9 +6,10 @@ import BlogPostItem from "../components/blogPostItem";
 import Layout from "../components/layout";
 import { getAllFilledPosts } from "../utils/wordpress";
 import HeroPost from "../components/heroPost";
+import { HomeType, PostType } from "../types";
 
 type HomeProps = {
-  posts?: object;
+  posts: HomeType[];
 };
 
 export default function Home({ posts }: HomeProps) {
@@ -26,15 +27,11 @@ export default function Home({ posts }: HomeProps) {
   );
 
   async function fetchData(page = 1) {
-    const data = await getAllFilledPosts({
+    return await getAllFilledPosts({
       page: Number(page),
       per_page: 10,
     });
-
-    return data.parsedPost;
   }
-
-  console.log(data);
 
   const stickyPost = data && data[0];
   const nonStickyPosts = data && data.slice(1);
@@ -70,7 +67,7 @@ export default function Home({ posts }: HomeProps) {
             Fetching article
           </div>
         ) : (
-          <HeroPost post={stickyPost} />
+          <HeroPost post={stickyPost as PostType} />
         )}
         <section aria-labelledby="articles">
           <div className="blog__articles">
@@ -90,7 +87,7 @@ export default function Home({ posts }: HomeProps) {
               >
                 {nonStickyPosts &&
                   nonStickyPosts.map((post: object, index: number) => (
-                    <BlogPostItem key={index} data={post} />
+                    <BlogPostItem key={index} data={post as PostType} />
                   ))}
               </div>
             )}
@@ -117,9 +114,7 @@ export default function Home({ posts }: HomeProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const allPosts = await getAllFilledPosts({ per_page: 10 });
-
-  const posts = allPosts.parsedPost;
+  const posts = await getAllFilledPosts({ per_page: 10 });
 
   return {
     props: {

@@ -3,30 +3,13 @@ import Link from "next/link";
 import React from "react";
 import { formatDate, readingTime } from "../utils";
 import BlogDetails from "./blogDetails";
+import { PostType } from "../types";
 
 type HeroPostProps = {
-  post: any;
-  // post: {
-  //   content: {
-  //     rendered: string;
-  //   };
-  //   excerpt: {
-  //     rendered: string;
-  //   };
-  //   date: string;
-  //   slug: string;
-  //   featuredMedia: {
-  //     source_url: string;
-  //     alt_text: string;
-  //   };
-  //   title: {
-  //     rendered: string;
-  //   };
-  //   authorData: object;
-  // };
+  post: PostType;
 };
 function HeroPost({ post }: HeroPostProps) {
-  const readTime = readingTime(post?.content?.rendered);
+  const readTime = readingTime(post.content.rendered);
   const formattedDate = formatDate(post.date);
 
   return (

@@ -1,32 +1,10 @@
-import {
-  MouseEventHandler,
-  useContext,
-  useEffect,
-  useReducer,
-  useState,
-} from "react";
-import { ShapeContext } from "../pages/shape";
+import { useContext, useEffect, useReducer, useState } from "react";
+import { ShapeContext } from "../pages/filter";
+import { ShapeContextType, ColorType, ShapeType } from "../types";
 
 function Shape() {
-  const { shapeArr, colorArr }: any = useContext(ShapeContext);
+  const { shapeArr, colorArr } = useContext<ShapeContextType>(ShapeContext);
   const [title, setTitle] = useState<string>("All items");
-
-  type Shape = {
-    shape: string;
-    isActive: boolean;
-  };
-
-  type Color = {
-    color: string;
-    isActive: boolean;
-  };
-
-  // type Reducer = {
-  //   state: [];
-  //   action: {
-  //     type: string;
-  //   };
-  // };
 
   function shapeReducer(state: any, action: any) {
     switch (action.type) {
@@ -72,17 +50,14 @@ function Shape() {
 
   useEffect(() => {
     let colorSelect = colorState.filter(
-      (color: any) => color.isActive === true
+      (color: ColorType) => color.isActive === true
     );
     let colorLen = colorSelect.length;
+
     let shapeSelect = shapeState.filter(
-      (shape: any) => shape.isActive === true
+      (shape: ShapeType) => shape.isActive === true
     );
     let shapeLen = shapeSelect.length;
-
-    //
-
-    console.log(colorSelect, shapeLen);
 
     let colorStateLen = colorState.length;
     let shapeStateLen = shapeState.length;
@@ -90,6 +65,29 @@ function Shape() {
     let allShape = shapeLen === shapeStateLen;
     let allColor = colorLen === colorStateLen;
 
+
+    // all color selected
+    if (allColor) {
+      setTitle("All color items");
+    }
+
+    // all shape selected
+    if (allShape) {
+      setTitle("All shape items");
+    }
+
+    // mutliple color selected
+    if (!allColor && colorLen > 1) {
+      setTitle("Mutliple color items");
+    }
+
+    // mutliple shape selected
+
+    if (!allShape && shapeLen > 1) {
+      setTitle("Mutliple shape items");
+    }
+
+    // multiple shape and color selected
     if ((allColor && shapeLen > 1) || (allShape && colorLen > 1)) {
       setTitle("Multiple items");
     }
@@ -142,7 +140,7 @@ function Shape() {
         <p>Shapes</p>
         <div className="shapes__item_container">
           {shapeState &&
-            shapeState.map(({ shape, isActive }: Shape, index: number) => (
+            shapeState.map(({ shape, isActive }: ShapeType, index: number) => (
               <button
                 onClick={() => {
                   shapeDispatch({ type: "Shape", shape, index });
@@ -159,7 +157,7 @@ function Shape() {
         <p>Colors</p>
         <div className="shapes__item_container">
           {colorState &&
-            colorState.map(({ color, isActive }: Color, index: number) => (
+            colorState.map(({ color, isActive }: ColorType, index: number) => (
               <button
                 onClick={() => {
                   colorDispatch({ type: "Color", color, index });

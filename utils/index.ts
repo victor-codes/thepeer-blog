@@ -9,7 +9,7 @@ const readingTime = (content: string) => {
   // average reading speed
   const WordsPerMinute = 250;
   // remove html tags and count words
-  const words = content.replace(/<(?:.|\n)*?>/gm, "").split(" ").length;
+  const words = content?.replace(/<(?:.|\n)*?>/gm, "").split(" ").length;
   // calculate minutes
   const minutes = Math.ceil(words / WordsPerMinute);
   return minutes > 1 ? `${minutes} Min Read` : "1 Min Read";

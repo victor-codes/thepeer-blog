@@ -1,16 +1,18 @@
 import Head from "next/head";
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext } from "react";
 import Shape from "../components/shape";
 import { shapesList } from "../utils";
 
-export const ShapeContext = createContext<{
-  shapeArr?: object;
-  colorArr?: object;
-}>({});
+import { ShapeContextType, ColorType, ShapeType } from "../types";
+
+export const ShapeContext = createContext<ShapeContextType>({
+  shapeArr: [],
+  colorArr: [],
+});
 
 function Shapes() {
-  let colorArr = [];
-  let shapeArr: any[] = [];
+  let colorArr: ColorType[] = [];
+  let shapeArr: ShapeType[] = [];
 
   const parsedColor: string[] = [];
   const parsedShape: string[] = [];
@@ -21,19 +23,12 @@ function Shapes() {
 
     if (!parsedColor.includes(color)) {
       parsedColor.push(color);
+      colorArr.push({ color, isActive: true });
     }
     if (!parsedShape.includes(shape)) {
       parsedShape.push(shape);
+      shapeArr.push({ shape, isActive: true });
     }
-  }
-  for (let i = 0; i < parsedShape.length; i++) {
-    const element = parsedShape[i];
-    shapeArr.push({ shape: element, isActive: true });
-  }
-
-  for (let i = 0; i < parsedColor.length; i++) {
-    const element = parsedColor[i];
-    colorArr.push({ color: element, isActive: true });
   }
 
   return (

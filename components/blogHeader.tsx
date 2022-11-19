@@ -2,9 +2,10 @@ import Image from "next/image";
 import React from "react";
 import { formatDate } from "../utils";
 import BlogDetails from "./blogDetails";
+import { PostType } from "../types";
 
 type BlogHeaderProps = {
-  post?: any;
+  post: PostType;
   readTime: string;
 };
 

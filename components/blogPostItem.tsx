@@ -3,9 +3,10 @@ import Link from "next/link";
 import React from "react";
 import { formatDate, readingTime } from "../utils";
 import BlogDetails from "./blogDetails";
+import { PostType } from "../types";
 
 type BlogPostItemProps = {
-  data?: any;
+  data: PostType;
 };
 
 function BlogPostItem({ data }: BlogPostItemProps) {
