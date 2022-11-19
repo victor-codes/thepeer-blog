@@ -26,8 +26,6 @@ function Footer() {
     },
   };
 
-  console.log(config);
-
   const handleCheckout = useCheckout(config);
 
   // event
