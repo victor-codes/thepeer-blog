@@ -23,10 +23,6 @@ const nextConfig = {
       },
     ],
   },
-  env: {
-    WORDPRESS_API: process.env.NEXT_PUBLIC_WORDPRESS_API,
-    THEPEER_SECRET_KEY: process.env.NEXT_PUBLIC_THEPEER_SECRET_KEY,
-  },
 };
 
 module.exports = nextConfig;

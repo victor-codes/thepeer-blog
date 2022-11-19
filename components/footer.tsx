@@ -10,7 +10,7 @@ import { useCheckout } from "thepeer-react";
 
 function Footer() {
   const config = {
-    publicKey: process.env.THEPEER_SECRET_KEY as string,
+    publicKey: process.env.NEXT_PUBLIC_THEPEER_SECRET_KEY as string,
     amount: "500000",
     email: "ayodejiv5@gmail.com",
     currency: "NGN",
@@ -25,6 +25,8 @@ function Footer() {
       console.log("closed checkout widget");
     },
   };
+
+  console.log(config);
 
   const handleCheckout = useCheckout(config);
 
