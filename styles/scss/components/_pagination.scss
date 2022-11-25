@@ -2,20 +2,95 @@
   margin-top: 10.4rem;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 
   &__entries {
+    position: relative;
     display: flex;
     align-items: center;
 
-    button {
-      display: block;
-      border-radius: 0.6rem;
-      padding: 1.2rem 1.6rem;
+    p {
+      @extend %description-14;
     }
+
+    select {
+      height: 3.6rem;
+      padding: 0.8rem 3.5rem 0.8rem 1.6rem;
+      border: 0.1rem solid $color-blue-ribbon;
+      border-radius: 0.6rem;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      -o-appearance: none;
+      appearance: none;
+    }
+
+    &::after {
+      content: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg clip-path='url(%23clip0_2_326)'%3E%3Cpath d='M7.41 8.59L12 13.17L16.59 8.59L18 10L12 16L6 10L7.41 8.59Z' fill='black'/%3E%3C/g%3E%3Cdefs%3E%3CclipPath id='clip0_2_326'%3E%3Crect width='24' height='24' fill='white'/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E%0A");
+      position: absolute;
+      pointer-events: none;
+      right: 0.6rem;
+      width: 2.4rem;
+      height: 2.4rem;
+    }
+
+    // button {
+    //   display: block;
+    //   border-radius: 0.6rem;
+    //   padding: 1.2rem 1.6rem;
+    // }
 
     > :last-child {
       margin-left: 1rem;
+    }
+  }
+
+  &__list {
+    display: flex;
+    padding: 0;
+    align-items: center;
+    height: 100%;
+    list-style: none;
+
+    li {
+      display: inline-block;
+    }
+
+    &__item,
+    .next,
+    .previous {
+      background: #f9f9f9;
+      color: $color-blue-ribbon;
+      padding: 1rem 1.4rem;
+      font-size: 1.4rem;
+      font-weight: 500;
+      border: 0.05rem solid #eff2f7;
+
+      // states
+      &--active {
+        border-width: 0.1rem;
+        color: #a6adc3;
+      }
+    }
+
+    .next {
+      margin-left: 0.5rem;
+    }
+
+    .break {
+      margin: -0.4rem 1rem 0;
+    }
+
+    .previous {
+      margin-right: 0.5rem;
+    }
+
+    &_container {
+      border-radius: 0.6rem;
+      background-color: $color-blue-ribbon;
+    }
+
+    &__disabled {
+      color: #a6adc3 !important;
     }
   }
 }

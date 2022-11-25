@@ -1,51 +1,47 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
+import { GetStaticProps } from "next";
 import Head from "next/head";
-import { useQuery, useQueryClient } from "react-query";
+import ReactPaginate from "react-paginate";
+// import { useQuery, useQueryClient } from "react-query";
 import BlogPostItem from "../components/blogPostItem";
 import Layout from "../components/layout";
 import { getAllFilledPosts } from "../utils/wordpress";
 import HeroPost from "../components/heroPost";
 import { PostType } from "../types";
+// import { useLocalStorage } from "../utils/hooks/uselocalstorage";
 
-export default function Home() {
-  const [page, setPage] = useState(1);
+type HomeProps = {
+  posts: PostType[];
+};
 
-  const queryClient = useQueryClient();
-
-  const { isLoading, data, isFetching } = useQuery(
-    ["posts", page],
-    ({}) => fetchData(page),
-    {
-      keepPreviousData: true,
-    }
-  );
-
-  async function fetchData(page = 1) {
-    return await getAllFilledPosts({
-      page: Number(page),
-      per_page: 10,
-    });
-  }
-
+export default function Home({ posts: data }: HomeProps) {
   const stickyPost = data && data[0];
   const nonStickyPosts = data && data.slice(1);
 
+  const [startOffset, setStartOffset] = useState(0);
+  const [entries, setEntries] = useState(3);
+
+  // const [storedPage, setStoredPage] = useLocalStorage("currentPageNumber", 1);
+
+  // pagination
+  const pageCount = Math.ceil(nonStickyPosts.length / entries);
+  const endOffset = entries + startOffset;
+
+  const currentData = nonStickyPosts.slice(startOffset, endOffset);
+
   // Events
-  function handleLoadMore() {
-    if (isFetching) {
-      queryClient.cancelQueries("posts");
-    }
-    if (page <= 10) {
-      setPage((page) => page + 1);
-    }
+  type PaginateProps = {
+    selected: number;
+  };
+  function handlePaginationClick(event: PaginateProps) {
+    const offset = (event.selected * entries) % nonStickyPosts.length;
+    setStartOffset(offset);
+    // setStoredPage(offset);
   }
-  function handleLoadPrevious() {
-    if (isFetching) {
-      queryClient.cancelQueries("posts");
-    }
-    if (page > 1) {
-      setPage((page) => page - 1);
-    }
+
+  function handleSelect(event: ChangeEvent<HTMLSelectElement>) {
+    const value = parseInt(event.target.value);
+    setEntries(value);
   }
 
   return (
@@ -56,53 +52,47 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="blog">
-        {isLoading ? (
-          <div
-            className={`blog__articles__loading loading__hero 
-               ${isFetching && "blog__articles--loading"}
-          `}
-          >
-            Fetching article
-          </div>
-        ) : (
-          <HeroPost post={stickyPost as PostType} />
-        )}
+        <HeroPost post={stickyPost as PostType} />
         <section aria-labelledby="articles">
           <div className="blog__articles">
             <h2 id="articles" className="blog__articles__header">
               See more articles
             </h2>
 
-            {isLoading ? (
-              <div className="blog__articles__loading">
-                Fetching articles...
-              </div>
-            ) : (
-              <div
-                className={`blog__articles__grid ${
-                  isFetching && "blog__articles--loading"
-                }`}
-              >
-                {nonStickyPosts &&
-                  nonStickyPosts.map((post: object, index: number) => (
-                    <BlogPostItem key={index} data={post as PostType} />
-                  ))}
-              </div>
-            )}
+            <div className="blog__articles__grid">
+              {currentData &&
+                currentData.map((post: object, index: number) => (
+                  <BlogPostItem key={index} data={post as PostType} />
+                ))}
+            </div>
 
             <div className="pagination">
               <div className="pagination__entries">
-                <button
-                  aria-label="load previous posts"
-                  disabled={page === 1}
-                  onClick={handleLoadPrevious}
+                <p>Entries per page</p>
+                <select
+                  name="entries"
+                  id="entries"
+                  value={entries}
+                  onChange={handleSelect}
                 >
-                  Previous
-                </button>
-                <button aria-label="load next posts" onClick={handleLoadMore}>
-                  Next
-                </button>
+                  <option value="3">3</option>
+                  <option value="6">6</option>
+                  <option value="9">9</option>
+                </select>
               </div>
+              <ReactPaginate
+                className="pagination__list"
+                pageCount={pageCount}
+                previousAriaLabel="Previous"
+                nextAriaLabel="Next"
+                previousLabel="<"
+                nextLabel=">"
+                onPageChange={handlePaginationClick}
+                containerClassName="pagination__list_container"
+                activeLinkClassName="pagination__list__item--active"
+                pageLinkClassName="pagination__list__item"
+                disabledClassName="pagination__list__disabled"
+              />
             </div>
           </div>
         </section>
@@ -110,3 +100,16 @@ export default function Home() {
     </Layout>
   );
 }
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const posts = await getAllFilledPosts({
+    page: 1,
+    per_page: 100,
+  });
+
+  return {
+    props: {
+      posts,
+    },
+  };
+};
