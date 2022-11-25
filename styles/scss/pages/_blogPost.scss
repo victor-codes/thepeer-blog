@@ -76,6 +76,15 @@
       }
     }
 
+    blockquote {
+      border: 0.2rem solid $color-blue-ribbon;
+      padding-left: 2rem;
+      margin: 3.2rem 0 4rem;
+      border-top-width: 0rem;
+      border-right-width: 0rem;
+      border-bottom-width: 0rem;
+    }
+
     a {
       @extend %description-20;
 

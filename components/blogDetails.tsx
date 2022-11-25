@@ -12,7 +12,7 @@ function BlogDetails({ author, time, date }: BlogDetailsProps) {
   return (
     <div className="post__details">
       <figure className="post__author__media">
-        {author && (
+        {author.avatar_urls && (
           <Image
             src={author.avatar_urls[48]}
             alt={author.name}

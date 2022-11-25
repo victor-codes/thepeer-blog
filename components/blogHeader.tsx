@@ -41,7 +41,7 @@ function BlogHeader({ post, readTime }: BlogHeaderProps) {
           />
         )}
         <figcaption className="post__featured__media__caption">
-          {post.featuredMedia.alt_text}
+          {post.featuredMedia.alt_text && post.featuredMedia.alt_text}
         </figcaption>
       </figure>
     </header>
