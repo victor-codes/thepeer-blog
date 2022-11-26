@@ -19,24 +19,18 @@ export default function Home({ posts: data }: HomeProps) {
   const nonStickyPosts = data && data.slice(1);
 
   const [storedPage, setStoredPage] = useLocalStorage("currentPageNumber", 0);
-  const [storedEntries, setStoredEntries] = useLocalStorage(
-    "currentEntries",
-    9
-  );
+  const [storedEntries, setStoredEntries] = useState(9);
 
   // pagination
-  const currentPage = storedPage / storedEntries + 1;
-
   const pageCount = Math.ceil(nonStickyPosts.length / storedEntries);
   const endOffset = storedEntries + storedPage;
 
+  const currentPage = (storedPage % pageCount) / storedEntries + 1;
   const currentData = nonStickyPosts.slice(storedPage, endOffset);
 
   // Events
   function handlePaginationClick(event: PaginateProps) {
     const offset = (event.selected * storedEntries) % nonStickyPosts.length;
-    console.log(offset);
-
     setStoredPage(offset);
   }
 
