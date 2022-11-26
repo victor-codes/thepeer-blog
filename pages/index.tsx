@@ -22,6 +22,10 @@ export default function Home({ posts: data }: HomeProps) {
   const [startOffset, setStartOffset] = useState(0);
   const [storedEntries, setStoredEntries] = useState(9);
 
+  useEffect(() => {
+    setStartOffset(storedPage * storedEntries);
+  }, []);
+
   // pagination
   const pageCount = Math.ceil(nonStickyPosts.length / storedEntries);
   const endOffset = storedEntries + startOffset;
@@ -107,7 +111,7 @@ export default function Home({ posts: data }: HomeProps) {
 export const getStaticProps: GetStaticProps = async () => {
   const posts = await getAllFilledPosts({
     page: 1,
-    per_page: 25,
+    per_page: 100,
   });
 
   return {
