@@ -19,6 +19,10 @@ export default function Home({ posts: data }: HomeProps) {
   const nonStickyPosts = data && data.slice(1);
 
   const [storedPage, setStoredPage] = useLocalStorage("currentPageNumber", 0);
+  const [storedEntries, setStoredEntries] = useLocalStorage(
+    "currentEntries",
+    9
+  );
   // const [startOffset, setStartOffset] = useState(0);
   const [entries, setEntries] = useState(3);
 
@@ -27,20 +31,20 @@ export default function Home({ posts: data }: HomeProps) {
   // }, []);
 
   // pagination
-  const pageCount = Math.ceil(nonStickyPosts.length / entries);
-  const endOffset = entries + storedPage;
+  const pageCount = Math.ceil(nonStickyPosts.length / storedEntries);
+  const endOffset = storedEntries + storedPage;
 
   const currentData = nonStickyPosts.slice(storedPage, endOffset);
 
   // Events
   function handlePaginationClick(event: PaginateProps) {
-    const offset = (event.selected * entries) % nonStickyPosts.length;
+    const offset = (event.selected * storedEntries) % nonStickyPosts.length;
     setStoredPage(offset);
   }
 
   function handleSelect(event: ChangeEvent<HTMLSelectElement>) {
     const value = parseInt(event.target.value);
-    setEntries(value);
+    setStoredEntries(value);
   }
 
   return (
@@ -71,7 +75,7 @@ export default function Home({ posts: data }: HomeProps) {
                 <select
                   name="entries"
                   id="entries"
-                  value={entries}
+                  value={storedEntries}
                   onChange={handleSelect}
                 >
                   <option value="3">3</option>
