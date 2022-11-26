@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { GetStaticProps } from "next";
 import Head from "next/head";
 import ReactPaginate from "react-paginate";
@@ -7,8 +7,8 @@ import BlogPostItem from "../components/blogPostItem";
 import Layout from "../components/layout";
 import { getAllFilledPosts } from "../utils/wordpress";
 import HeroPost from "../components/heroPost";
-import { PostType } from "../types";
-// import { useLocalStorage } from "../utils/hooks/uselocalstorage";
+import { PostType, PaginateProps } from "../types";
+import { useLocalStorage } from "../utils/hooks/uselocalstorage";
 
 type HomeProps = {
   posts: PostType[];
@@ -18,25 +18,24 @@ export default function Home({ posts: data }: HomeProps) {
   const stickyPost = data && data[0];
   const nonStickyPosts = data && data.slice(1);
 
-  const [startOffset, setStartOffset] = useState(0);
+  const [storedPage, setStoredPage] = useLocalStorage("currentPageNumber", 0);
+  // const [startOffset, setStartOffset] = useState(0);
   const [entries, setEntries] = useState(3);
 
-  // const [storedPage, setStoredPage] = useLocalStorage("currentPageNumber", 1);
+  // useEffect(() => {
+  //   setStartOffset(storedPage);
+  // }, []);
 
   // pagination
   const pageCount = Math.ceil(nonStickyPosts.length / entries);
-  const endOffset = entries + startOffset;
+  const endOffset = entries + storedPage;
 
-  const currentData = nonStickyPosts.slice(startOffset, endOffset);
+  const currentData = nonStickyPosts.slice(storedPage, endOffset);
 
   // Events
-  type PaginateProps = {
-    selected: number;
-  };
   function handlePaginationClick(event: PaginateProps) {
     const offset = (event.selected * entries) % nonStickyPosts.length;
-    setStartOffset(offset);
-    // setStoredPage(offset);
+    setStoredPage(offset);
   }
 
   function handleSelect(event: ChangeEvent<HTMLSelectElement>) {
@@ -78,6 +77,9 @@ export default function Home({ posts: data }: HomeProps) {
                   <option value="3">3</option>
                   <option value="6">6</option>
                   <option value="9">9</option>
+                  <option value="12">12</option>
+                  <option value="15">15</option>
+                  <option value="18">18</option>
                 </select>
               </div>
               <ReactPaginate
@@ -87,6 +89,8 @@ export default function Home({ posts: data }: HomeProps) {
                 nextAriaLabel="Next"
                 previousLabel="<"
                 nextLabel=">"
+                initialPage={storedPage}
+                renderOnZeroPageCount={() => null}
                 onPageChange={handlePaginationClick}
                 containerClassName="pagination__list_container"
                 activeLinkClassName="pagination__list__item--active"
@@ -101,7 +105,7 @@ export default function Home({ posts: data }: HomeProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async () => {
   const posts = await getAllFilledPosts({
     page: 1,
     per_page: 100,

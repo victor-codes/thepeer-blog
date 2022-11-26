@@ -44,3 +44,7 @@ export type ShapeContextType = {
   colorArr: ColorType[];
   shapeArr: ShapeType[];
 };
+
+export type PaginateProps = {
+  selected: number;
+};

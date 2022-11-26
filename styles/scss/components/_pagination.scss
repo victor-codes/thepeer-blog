@@ -1,13 +1,27 @@
 .pagination {
   margin-top: 10.4rem;
-  display: flex;
-  align-items: center;
+  overflow: scroll;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media screen and (min-width: 768px) {
+    display: flex;
+    align-items: center;
+  }
   justify-content: space-between;
 
   &__entries {
     position: relative;
+    width: fit-content;
     display: flex;
     align-items: center;
+    margin-bottom: 2.4rem;
+
+    @media screen and (min-width: 768px) {
+      margin-bottom: 0rem;
+    }
 
     p {
       @extend %description-14;
@@ -31,6 +45,10 @@
       right: 0.6rem;
       width: 2.4rem;
       height: 2.4rem;
+      top: 0.9rem;
+      @media screen and (min-width: 768px) {
+        top: 0.6rem;
+      }
     }
 
     // button {

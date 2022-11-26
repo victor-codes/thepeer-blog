@@ -33,4 +33,62 @@
       align-items: center;
     }
   }
+
+  &__grid {
+  }
+}
+
+.shape {
+  width: 10rem;
+  height: 10rem;
+  // color
+  &--red {
+    background: red;
+  }
+
+  &--purple {
+    background: purple;
+  }
+
+  &--green {
+    background: green;
+  }
+
+  &--yellow {
+    background: yellow;
+  }
+
+  &--grey {
+    background: grey;
+  }
+
+  &--blue {
+    background: blue;
+  }
+
+  // shape
+  &-round {
+    border-radius: 50%;
+  }
+
+  &-square {
+  }
+
+  &-triangle {
+    width: 0;
+    height: 0;
+    border-left: 10rem solid transparent;
+    border-right: 10rem solid transparent;
+
+    border-bottom: 10rem solid black;
+  }
+
+  &-oval {
+    width: 14rem;
+    border-radius: 7rem / 5rem;
+  }
+
+  &-rectangle {
+    width: 14rem;
+  }
 }
