@@ -19,19 +19,21 @@ export default function Home({ posts: data }: HomeProps) {
   const nonStickyPosts = data && data.slice(1);
 
   const [storedPage, setStoredPage] = useLocalStorage("currentPageNumber", 0);
+  const [startOffset, setStartOffset] = useState(0);
   const [storedEntries, setStoredEntries] = useState(9);
 
   // pagination
   const pageCount = Math.ceil(nonStickyPosts.length / storedEntries);
-  const endOffset = storedEntries + storedPage;
+  const endOffset = storedEntries + startOffset;
 
-  const currentPage = (storedPage % pageCount) / storedEntries + 1;
-  const currentData = nonStickyPosts.slice(storedPage, endOffset);
+  // const currentPage = (storedPage % pageCount) / storedEntries + 1;
+  const currentData = nonStickyPosts.slice(startOffset, endOffset);
 
   // Events
   function handlePaginationClick(event: PaginateProps) {
     const offset = (event.selected * storedEntries) % nonStickyPosts.length;
-    setStoredPage(offset);
+    setStartOffset(offset);
+    setStoredPage(event.selected);
   }
 
   function handleSelect(event: ChangeEvent<HTMLSelectElement>) {
@@ -86,7 +88,7 @@ export default function Home({ posts: data }: HomeProps) {
                   nextAriaLabel="Next"
                   previousLabel="<"
                   nextLabel=">"
-                  initialPage={currentPage}
+                  initialPage={storedPage}
                   onPageChange={handlePaginationClick}
                   containerClassName="pagination__list_container"
                   activeLinkClassName="pagination__list__item--active"
