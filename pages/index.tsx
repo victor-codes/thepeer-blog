@@ -23,14 +23,10 @@ export default function Home({ posts: data }: HomeProps) {
     "currentEntries",
     9
   );
-  // const [startOffset, setStartOffset] = useState(0);
-  const [entries, setEntries] = useState(3);
-
-  // useEffect(() => {
-  //   setStartOffset(storedPage);
-  // }, []);
 
   // pagination
+  const currentPage = storedPage / storedEntries + 1;
+
   const pageCount = Math.ceil(nonStickyPosts.length / storedEntries);
   const endOffset = storedEntries + storedPage;
 
@@ -39,6 +35,8 @@ export default function Home({ posts: data }: HomeProps) {
   // Events
   function handlePaginationClick(event: PaginateProps) {
     const offset = (event.selected * storedEntries) % nonStickyPosts.length;
+    console.log(offset);
+
     setStoredPage(offset);
   }
 
@@ -86,21 +84,22 @@ export default function Home({ posts: data }: HomeProps) {
                   <option value="18">18</option>
                 </select>
               </div>
-              <ReactPaginate
-                className="pagination__list"
-                pageCount={pageCount}
-                previousAriaLabel="Previous"
-                nextAriaLabel="Next"
-                previousLabel="<"
-                nextLabel=">"
-                initialPage={storedPage}
-                renderOnZeroPageCount={() => null}
-                onPageChange={handlePaginationClick}
-                containerClassName="pagination__list_container"
-                activeLinkClassName="pagination__list__item--active"
-                pageLinkClassName="pagination__list__item"
-                disabledClassName="pagination__list__disabled"
-              />
+              <div className="pagination__control">
+                <ReactPaginate
+                  className="pagination__list"
+                  pageCount={pageCount}
+                  previousAriaLabel="Previous"
+                  nextAriaLabel="Next"
+                  previousLabel="<"
+                  nextLabel=">"
+                  initialPage={currentPage}
+                  onPageChange={handlePaginationClick}
+                  containerClassName="pagination__list_container"
+                  activeLinkClassName="pagination__list__item--active"
+                  pageLinkClassName="pagination__list__item"
+                  disabledClassName="pagination__list__disabled"
+                />
+              </div>
             </div>
           </div>
         </section>
@@ -112,7 +111,7 @@ export default function Home({ posts: data }: HomeProps) {
 export const getStaticProps: GetStaticProps = async () => {
   const posts = await getAllFilledPosts({
     page: 1,
-    per_page: 100,
+    per_page: 25,
   });
 
   return {
