@@ -62,15 +62,8 @@ function Shape() {
   );
 
   useEffect(() => {
-    let colorSelect = colorState.filter(
-      (color: ColorType) => color.isActive === true
-    );
-    let colorLen = colorSelect.length;
-
-    let shapeSelect = shapeState.filter(
-      (shape: ShapeType) => shape.isActive === true
-    );
-    let shapeLen = shapeSelect.length;
+    let colorLen = filteredColor.length;
+    let shapeLen = filteredShape.length;
 
     let colorStateLen = colorState.length;
     let shapeStateLen = shapeState.length;
@@ -79,38 +72,42 @@ function Shape() {
     let allColor = colorLen === colorStateLen;
 
     // multiple shape and color selected
-    if ((allColor && shapeLen > 1) || (allShape && colorLen > 1)) {
+    if (
+      (allColor && shapeLen > 1) ||
+      (allShape && colorLen > 1) ||
+      (colorLen > 1 && shapeLen > 1)
+    ) {
       setTitle("Multiple items");
     }
 
     if (shapeLen > 1 && colorLen === 1) {
-      setTitle(`Multiple ${colorSelect[0].color} items`);
+      setTitle(`Multiple ${filteredColor[0].color} items`);
     }
 
     if (colorLen > 1 && shapeLen === 1) {
-      setTitle(`Multiple ${shapeSelect[0].shape} items`);
+      setTitle(`Multiple ${filteredShape[0].shape} items`);
     }
 
     // all shape and one color selected
     if (allShape && colorLen === 1) {
-      setTitle(`All ${colorSelect[0].color} items`);
+      setTitle(`All ${filteredColor[0].color} items`);
     }
 
     // all color and one shape selected
     if (allColor && shapeLen === 1) {
-      setTitle(`All ${shapeSelect[0].shape} items`);
+      setTitle(`All ${filteredShape[0].shape} items`);
     }
 
     // a single color and shape is selected
     if (colorLen === 1 && shapeLen === 1) {
-      setTitle(`${colorSelect[0].color} ${shapeSelect[0].shape} items`);
+      setTitle(`${filteredColor[0].color} ${filteredShape[0].shape} items`);
     }
 
     // all the colours and shapes are selected
     if (allColor && allShape) {
       setTitle("All items");
     }
-  }, [shapeState, colorState]);
+  }, [colorState.length, filteredColor, filteredShape, shapeState.length]);
 
   return (
     <div className="shapes">
