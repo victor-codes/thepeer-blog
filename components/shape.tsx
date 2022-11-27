@@ -7,9 +7,9 @@ function Shape() {
   const [title, setTitle] = useState<string>("All items");
 
   function shapeReducer(state: any, action: any) {
-    const filteredlength = state.filter((item: any) => item.isActive === true);
+    const filtered = state.filter((item: any) => item.isActive === true);
 
-    if (filteredlength.length === 1) {
+    if (filtered.length === 1 && filtered[0].shape === action.shape) {
       return (state = shapeArr);
     }
 
@@ -28,15 +28,10 @@ function Shape() {
     }
   }
 
-  const [shapeState, shapeDispatch] = useReducer(shapeReducer, shapeArr);
-
-  const filteredShape = shapeState.filter(
-    (item: any) => item.isActive === true
-  );
-
   function colorReducer(state: any, action: any) {
-    const filteredlength = state.filter((item: any) => item.isActive === true);
-    if (filteredlength.length === 1) {
+    const filtered = state.filter((item: any) => item.isActive === true);
+
+    if (filtered.length === 1 && filtered[0].color === action.color) {
       return (state = colorArr);
     }
 
@@ -55,9 +50,14 @@ function Shape() {
     }
   }
 
+  const [shapeState, shapeDispatch] = useReducer(shapeReducer, shapeArr);
   const [colorState, colorDispatch] = useReducer(colorReducer, colorArr);
 
   const filteredColor = colorState.filter(
+    (item: any) => item.isActive === true
+  );
+
+  const filteredShape = shapeState.filter(
     (item: any) => item.isActive === true
   );
 
@@ -77,16 +77,6 @@ function Shape() {
 
     let allShape = shapeLen === shapeStateLen;
     let allColor = colorLen === colorStateLen;
-
-    // all color selected
-    if (allColor) {
-      setTitle("All color items");
-    }
-
-    // all shape selected
-    if (allShape) {
-      setTitle("All shape items");
-    }
 
     // mutliple color selected
     if (!allColor && colorLen > 1) {
