@@ -110,7 +110,7 @@ export default function Home({ posts: data }: HomeProps) {
 export const getStaticProps: GetStaticProps = async () => {
   const posts = await getAllFilledPosts({
     page: 1,
-    per_page: 10,
+    per_page: 100,
   });
 
   return {
