@@ -35,35 +35,53 @@
   }
 
   &__grid {
+    display: grid;
+    gap: 4rem;
+    width: 60%;
+    margin: 4rem 0;
+    padding: 4rem 0;
+    grid-template-columns: repeat(6, 1fr);
+
+    > div {
+      :not(:first-child) {
+        margin-top: 4rem;
+      }
+    }
   }
 }
 
 .shape {
-  width: 10rem;
-  height: 10rem;
+  width: 5rem;
+  height: 5rem;
   // color
   &--red {
     background: red;
+    border-bottom-color: red;
   }
 
   &--purple {
+    border-bottom-color: purple;
     background: purple;
   }
 
   &--green {
+    border-bottom-color: green;
     background: green;
   }
 
   &--yellow {
     background: yellow;
+    border-bottom-color: yellow;
   }
 
   &--grey {
+    border-bottom-color: grey;
     background: grey;
   }
 
   &--blue {
     background: blue;
+    border-bottom-color: blue;
   }
 
   // shape
@@ -76,19 +94,23 @@
 
   &-triangle {
     width: 0;
+    background: none;
     height: 0;
-    border-left: 10rem solid transparent;
-    border-right: 10rem solid transparent;
-
-    border-bottom: 10rem solid black;
+    border-style: solid;
+    border-top-width: 0;
+    border-left-width: 3.5rem;
+    border-right-width: 3.5rem;
+    border-bottom-width: 3.5rem;
+    border-right-color: transparent;
+    border-left-color: transparent;
   }
 
   &-oval {
-    width: 14rem;
-    border-radius: 7rem / 5rem;
+    width: 8rem;
+    border-radius: 4rem / 2.5rem;
   }
 
   &-rectangle {
-    width: 14rem;
+    width: 8rem;
   }
 }

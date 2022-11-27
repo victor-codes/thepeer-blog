@@ -7,12 +7,15 @@ function Shape() {
   const [title, setTitle] = useState<string>("All items");
 
   function shapeReducer(state: any, action: any) {
+    const filteredlength = state.filter((item: any) => item.isActive === true);
+
+    if (filteredlength.length === 1) {
+      return (state = shapeArr);
+    }
+
     switch (action.type) {
       case "Shape":
         return state.map((item: any) => {
-          if (state.length - 1 === action.index && item.isActive) {
-            return { ...item, isActive: false };
-          }
           if (item.shape === action.shape) {
             return { ...item, isActive: !item.isActive };
           } else {
@@ -27,13 +30,19 @@ function Shape() {
 
   const [shapeState, shapeDispatch] = useReducer(shapeReducer, shapeArr);
 
+  const filteredShape = shapeState.filter(
+    (item: any) => item.isActive === true
+  );
+
   function colorReducer(state: any, action: any) {
+    const filteredlength = state.filter((item: any) => item.isActive === true);
+    if (filteredlength.length === 1) {
+      return (state = colorArr);
+    }
+
     switch (action.type) {
       case "Color":
         return state.map((item: any) => {
-          if (state.length - 1 === action.index && item.isActive) {
-            return { ...item, isActive: false };
-          }
           if (item.color === action.color) {
             return { ...item, isActive: !item.isActive };
           } else {
@@ -47,6 +56,10 @@ function Shape() {
   }
 
   const [colorState, colorDispatch] = useReducer(colorReducer, colorArr);
+
+  const filteredColor = colorState.filter(
+    (item: any) => item.isActive === true
+  );
 
   useEffect(() => {
     let colorSelect = colorState.filter(
@@ -64,7 +77,6 @@ function Shape() {
 
     let allShape = shapeLen === shapeStateLen;
     let allColor = colorLen === colorStateLen;
-
 
     // all color selected
     if (allColor) {
@@ -110,14 +122,6 @@ function Shape() {
       setTitle(`All ${shapeSelect[0].shape} items`);
     }
 
-    if (colorLen === 1 && shapeLen === 0) {
-      setTitle(`${colorSelect[0].color} item`);
-    }
-
-    if (shapeLen === 1 && colorLen === 0) {
-      setTitle(`${shapeSelect[0].shape} item`);
-    }
-
     // a single color and shape is selected
     if (colorLen === 1 && shapeLen === 1) {
       setTitle(`${colorSelect[0].color} ${shapeSelect[0].shape} items`);
@@ -126,10 +130,6 @@ function Shape() {
     // all the colours and shapes are selected
     if (allColor && allShape) {
       setTitle("All items");
-    }
-
-    if (colorLen === 0 && shapeLen === 0) {
-      setTitle("No shape or color selected");
     }
   }, [shapeState, colorState]);
 
@@ -172,6 +172,18 @@ function Shape() {
               ></button>
             ))}
         </div>
+      </div>
+      <div className="shapes__grid">
+        {filteredShape.map(({ shape }: ShapeType, index: number) => (
+          <div key={index}>
+            {filteredColor.map(({ color }: ColorType, indexColor: number) => (
+              <div
+                key={indexColor}
+                className={`shape shape-${shape} shape--${color}`}
+              ></div>
+            ))}
+          </div>
+        ))}
       </div>
     </div>
   );

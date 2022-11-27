@@ -30,7 +30,6 @@ export default function Home({ posts: data }: HomeProps) {
   const pageCount = Math.ceil(nonStickyPosts.length / storedEntries);
   const endOffset = storedEntries + startOffset;
 
-  // const currentPage = (storedPage % pageCount) / storedEntries + 1;
   const currentData = nonStickyPosts.slice(startOffset, endOffset);
 
   // Events
@@ -111,7 +110,7 @@ export default function Home({ posts: data }: HomeProps) {
 export const getStaticProps: GetStaticProps = async () => {
   const posts = await getAllFilledPosts({
     page: 1,
-    per_page: 100,
+    per_page: 25,
   });
 
   return {
