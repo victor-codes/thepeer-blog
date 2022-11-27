@@ -78,17 +78,6 @@ function Shape() {
     let allShape = shapeLen === shapeStateLen;
     let allColor = colorLen === colorStateLen;
 
-    // mutliple color selected
-    if (!allColor && colorLen > 1) {
-      setTitle("Mutliple color items");
-    }
-
-    // mutliple shape selected
-
-    if (!allShape && shapeLen > 1) {
-      setTitle("Mutliple shape items");
-    }
-
     // multiple shape and color selected
     if ((allColor && shapeLen > 1) || (allShape && colorLen > 1)) {
       setTitle("Multiple items");
